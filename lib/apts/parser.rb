@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Apts
   class Parser
     attr_accessor :url, :link_regex
