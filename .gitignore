@@ -12,6 +12,7 @@
 
 *.gem
 seen.txt
+.env
 
 .idea/
 *.iml

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'dotenv'
 require 'open-uri'
 require 'nokogiri'
 require 'digest/sha1'
@@ -23,9 +24,7 @@ module Apts
       end
 
       def notify(posting)
-        token = '1014765302:AAG2r4z0sNYCsUB_nKmSVcl71picZDA2gwA'
-        chat_id = '332592625'
-        open "https://api.telegram.org/bot#{token}/sendMessage?chat_id=#{chat_id}&text=#{posting[:url]}"
+        open "https://api.telegram.org/bot#{ENV['TELEGRAM_TOKEN']}/sendMessage?chat_id=#{ENV['CHAT_ID']}&text=#{posting[:url]}"
       end
 
       def mark_as_seen(unseen_postings, file)
@@ -37,6 +36,7 @@ module Apts
       end
 
       def run
+        Dotenv.load '.env'
         logger = Logger.new STDOUT
 
         @history_file = File.open 'seen.txt', 'a+'
