@@ -7,8 +7,8 @@ require 'uri'
 require 'logger'
 require 'json'
 
-require 'apts/parsers/zonaprop_parser'
-require 'apts/version'
+require_relative 'apts/parsers/zonaprop_parser'
+require_relative 'apts/version'
 
 # Adapted from https://dev.to/fernandezpablo/scrappeando-propiedades-con-python-4cp8
 
