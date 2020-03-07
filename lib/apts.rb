@@ -23,14 +23,14 @@ module Apts
         []
       end
 
-      def notify(posting)
-        open "https://api.telegram.org/bot#{ENV['TELEGRAM_TOKEN']}/sendMessage?chat_id=#{ENV['CHAT_ID']}&text=#{posting[:url]}"
+      def notify(listing)
+        open "https://api.telegram.org/bot#{ENV['TELEGRAM_TOKEN']}/sendMessage?chat_id=#{ENV['CHAT_ID']}&text=#{listing[:url]}"
       end
 
-      def mark_as_seen(unseen_postings, file)
-        return if unseen_postings.empty?
+      def mark_as_seen(unseen_listings, file)
+        return if unseen_listings.empty?
 
-        content = unseen_postings.map { |u| u[:id] }.join("\n") << "\n"
+        content = unseen_listings.map { |u| u[:id] }.join("\n") << "\n"
         file.write content
         file.flush
       end
@@ -41,7 +41,7 @@ module Apts
 
         @history_file = File.open 'seen.txt', 'a+'
         @history = get_history @history_file
-        logger.debug "Loaded #{@history.length} seen postings"
+        logger.debug "Loaded #{@history.length} seen listings"
         @parsers = [
           Apts::Parser.new('https://www.zonaprop.com.ar', 'a.go-to-posting'),
           Apts::Parser.new('https://www.argenprop.com', 'div.listing__items div.listing__item a'),
@@ -55,15 +55,15 @@ module Apts
         logger.debug "#{@urls.length} URLs configured"
 
         @urls.each_with_index do |url, i|
-          logger.info "Extracting postings from #{url.host}..."
+          logger.info "Extracting listings from #{url.host}..."
           (parser = @parsers.find { |p| p.url.host == url.host }) || raise("No parser found for #{url}")
           html = Nokogiri::HTML(open(url))
-          postings = parser.extract_postings html
-          logger.debug "Extracted #{postings.length} postings"
-          seen, unseen = postings.partition { |l| @history.include? l[:id] }
+          listings = parser.extract_listings html
+          logger.debug "Extracted #{listings.length} listings"
+          seen, unseen = listings.partition { |l| @history.include? l[:id] }
 
-          logger.info "Postings: #{seen.length} seen, #{unseen.length} unseen"
-          logger.info 'Notifying unseen postings...'
+          logger.info "Listings: #{seen.length} seen, #{unseen.length} unseen"
+          logger.info 'Notifying unseen listings...'
           unseen.each { |u| notify u }
           logger.info 'Marking unseens as seen'
           mark_as_seen unseen, @history_file

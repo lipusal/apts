@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ['juanlipuma94@gmail.com']
 
   spec.summary       = 'Automated apartments searcher'
-  spec.description   = 'Script that scrapes different apartment pages with set criteria and keeps track of seen and unseen postings, notifying of new postings.'
+  spec.description   = 'Script that scrapes different apartment pages with set criteria and keeps track of seen and unseen listings, notifying of new listings.'
   spec.homepage      = 'https://github.com/lipusal/apts'
   spec.license       = 'MIT'
   spec.required_ruby_version = Gem::Requirement.new('>= 2.3.0')

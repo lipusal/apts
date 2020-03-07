@@ -9,7 +9,7 @@ module Apts
       @link_regex = link_regex
     end
 
-    def extract_postings(html)
+    def extract_listings(html)
       html.css(link_regex)
           .map do |link|
         href = link['href']
