@@ -24,7 +24,7 @@ module Apts
       end
 
       def notify(listing)
-        open "https://api.telegram.org/bot#{ENV['TELEGRAM_TOKEN']}/sendMessage?chat_id=#{ENV['CHAT_ID']}&text=#{listing.to_telegram_string}"
+        open "https://api.telegram.org/bot#{ENV['TELEGRAM_TOKEN']}/sendMessage?chat_id=#{ENV['CHAT_ID']}&text=#{listing.to_telegram_string}&parse_mode=HTML"
       end
 
       def record(listing)
@@ -34,7 +34,7 @@ module Apts
       def mark_as_seen(unseen_listings, file)
         return if unseen_listings.empty?
 
-        content = unseen_listings.map { |u| u[:id] }.join("\n") << "\n"
+        content = unseen_listings.map(&:id).join("\n") << "\n"
         file.write content
         file.flush
       end

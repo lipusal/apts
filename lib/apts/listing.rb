@@ -18,7 +18,8 @@ module Apts
     end
 
     def to_telegram_string
-      "$#{price[:total]}, #{size[:total]}m2\n#{url.path}"
+      # %0A = \n
+      "$#{price[:total]}, #{size[:total]}m2%0A#{url}"
     end
 
     # https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Lint/ToJSON
