@@ -6,6 +6,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'dotenv', '~> 2.1', '>= 2.1.1'
-gem 'nokogiri', '~> 1.10'
+gem 'nokogiri', '~> 1.10', '>= 1.10.8'
 gem 'rake', '~> 12.0'
 gem 'rspec', '~> 3.0'
