@@ -35,8 +35,8 @@ module Apts
 
       def size(l)
         data = l.css('ul.main-features > li > b').map(&:text)
-        total = data.find { |e| e.match?(/\d+.*totales/i) }.split(' ')[0].to_i
-        covered = data.find { |e| e.match?(/\d+.*cubiertos/i) }.split(' ')[0].to_i rescue 0
+        total = data.find { |e| !e.match(/\d+.*totales/i).nil? }.split(' ')[0].to_i
+        covered = data.find { |e| !e.match(/\d+.*cubiertos/i).nil? }.split(' ')[0].to_i rescue 0
         {
           covered: covered,
           total: total
