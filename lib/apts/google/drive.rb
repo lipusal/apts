@@ -23,8 +23,8 @@ module Apts
         return [] if @file_id.nil?
 
         dest = StringIO.new
-        @service.get_file(@file_id, download_dest: dest) # TODO NOW parse
-        dest.readlines
+        @service.get_file(@file_id, download_dest: dest)
+        dest.string.split "\n"
       end
 
       def mark_as_seen(unseen_listings)
@@ -40,16 +40,14 @@ module Apts
 
         new_seen.concat unseen_listings.map(&:id)
         content = StringIO.new(new_seen.join("\n") << "\n")
-        file_metadata = ::Google::Apis::DriveV3::File.new(name: SEEN_FILE_NAME, upload_source: content, content_type: 'text/plain')
-        @service.update_file(@file_id, file_metadata)
+        file_metadata = ::Google::Apis::DriveV3::File.new
+        @service.update_file(@file_id, file_metadata, upload_source: content, content_type: 'text/plain')
       end
 
       private
 
       def create_seen_file
-        # title, extension = SEEN_FILE_NAME.split '.'
         file_metadata = ::Google::Apis::DriveV3::File.new(name: SEEN_FILE_NAME, content_type: 'text/plain', fields: 'id')
-        # metadata = drive.create_file(remote_file, upload_source: 'test.txt', content_type: 'text/plain')
         @service.create_file(file_metadata)
       end
 
