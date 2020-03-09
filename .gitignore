@@ -13,6 +13,8 @@
 *.gem
 seen.txt
 .env
+client_secrets.json
+tokens.yaml
 
 .idea/
 *.iml

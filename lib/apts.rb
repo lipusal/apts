@@ -9,6 +9,7 @@ require 'json'
 
 require_relative 'apts/parsers/zonaprop_parser'
 require_relative 'apts/version'
+require_relative 'apts/google/drive'
 
 # Adapted from https://dev.to/fernandezpablo/scrappeando-propiedades-con-python-4cp8
 
@@ -18,6 +19,7 @@ module Apts
   class Main
     class << self
       def get_history(history_file)
+        drive.seen
         IO.readlines(history_file, chomp: true)
       rescue StandardError
         []
@@ -43,8 +45,10 @@ module Apts
         Dotenv.load '.env'
         logger = Logger.new STDOUT
 
+        @drive = Apts::Google::Drive.new
         @history_file = File.open 'seen.txt', 'a+'
-        @history = get_history @history_file
+        # @history = get_history @history_file
+        @history = @drive.seen
         logger.debug "Loaded #{@history.length} seen listings"
         # @parsers = [
         #   Apts::Parser.new('https://www.zonaprop.com.ar', 'a.go-to-posting'),
@@ -64,9 +68,10 @@ module Apts
 
           logger.info "Listings: #{seen.length} seen, #{unseen.length} unseen"
           logger.info 'Notifying unseen listings...'
-          unseen.each { |u| notify u }
+          # unseen.each { |u| notify u }
           logger.info 'Marking unseens as seen'
-          mark_as_seen unseen, @history_file
+          # mark_as_seen unseen, @history_file
+          @drive.mark_as_seen unseen
         end
 
 
