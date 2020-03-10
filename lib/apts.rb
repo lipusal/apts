@@ -22,18 +22,6 @@ module Apts
         open "https://api.telegram.org/bot#{ENV['TELEGRAM_TOKEN']}/sendMessage?chat_id=#{ENV['CHAT_ID']}&text=#{listing.to_telegram_string}&parse_mode=HTML"
       end
 
-      def record(listing)
-        `curl --silent -X POST -H 'Content-Type:application/json' https://maker.ifttt.com/trigger/apt_found/with/key/#{ENV['IFTTT_KEY']} -d #{JSON.generate(listing)}`
-      end
-
-      def mark_as_seen(unseen_listings, file)
-        return if unseen_listings.empty?
-
-        content = unseen_listings.map(&:id).join("\n") << "\n"
-        file.write content
-        file.flush
-      end
-
       def run
         Dotenv.load '.env'
         logger = Logger.new STDOUT
