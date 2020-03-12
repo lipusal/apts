@@ -56,8 +56,6 @@ module Apts
           listings = parser.extract_listings
           logger.debug "Extracted #{listings.length} listings"
           seen, unseen = listings.partition { |l| @history.include? l.id }
-          # Order by descending score
-          unseen.sort!.reverse!
 
           logger.info "Listings: #{seen.length} seen, #{unseen.length} unseen"
           puts "Average score for unseen: #{format '%.0f', unseen.map(&:score).sum / unseen.length}" if unseen.any?
