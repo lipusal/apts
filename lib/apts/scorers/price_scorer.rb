@@ -17,9 +17,13 @@ module Apts
 
       def calc(l)
         price = l.price[:total]
-        return @max_y if price >= @optimal_start && price <= @optimal_end
-
-        price < @optimal_start ? calc_lower(price) : calc_upper(price)
+        if price < @optimal_start
+          calc_lower price
+        elsif price > @optimal_end
+          calc_upper price
+        else
+          @max_y
+        end
       end
 
       private
