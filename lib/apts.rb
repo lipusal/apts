@@ -47,7 +47,7 @@ module Apts
         #   Apts::Parser.new('https://inmuebles.mercadolibre.com.ar', 'li.results-item .rowItem.item a')
         # ]
         @parsers = [
-          Apts::Parsers::ZonaPropParser.new(URI('https://www.zonaprop.com.ar/departamentos-alquiler-capital-federal-2-ambientes-menos-30000-pesos-orden-publicado-descendente.html')),
+          Apts::Parsers::ZonaPropParser.new(URI('https://www.zonaprop.com.ar/departamentos-alquiler-palermo-belgrano-recoleta-barrio-norte-las-canitas-nunez-villa-crespo-2-ambientes-menos-30000-pesos-orden-publicado-descendente.html')),
         ]
 
         logger.debug "#{@parsers.length} parsers configured"
