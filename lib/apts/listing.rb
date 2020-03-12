@@ -5,6 +5,7 @@ require_relative 'scorers/price_scorer'
 
 module Apts
   class Listing
+    include Comparable
     attr_reader :id, :url, :price, :expensas, :size
 
     def initialize(id, url, price:, size:)
@@ -20,6 +21,10 @@ module Apts
         Apts::Scorers::PriceScorer.new.calc(self)
       ]
       scores.sum
+    end
+
+    def <=>(other)
+      score <=> other.score
     end
 
     def to_s
