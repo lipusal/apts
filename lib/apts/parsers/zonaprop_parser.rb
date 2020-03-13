@@ -19,10 +19,6 @@ module Apts
         "#{@@base.scheme}://#{@@base.host}#{path}"
       end
 
-      def score(l)
-        raise NotImplementedError
-      end
-
       def price(l)
         base = l.css('div.posting-price > div.prices > span.first-price')[0]['data-price'].sub(/^[$\s]*/, '').sub(/[.,]/, '').to_i rescue 0
         expensas = l.css('div.posting-price > span.expenses')[0].text.sub(/^[+$\s]*/, '').sub(/\s?Expensas$/i, '').sub(/[.,]/, '').to_i rescue 0

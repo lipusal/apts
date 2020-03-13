@@ -8,6 +8,7 @@ require 'logger'
 require 'json'
 
 require_relative 'apts/parsers/zonaprop_parser'
+require_relative 'apts/parsers/argenprop_parser'
 require_relative 'apts/version'
 require_relative 'apts/google/drive'
 
@@ -35,7 +36,8 @@ module Apts
         #   Apts::Parser.new('https://inmuebles.mercadolibre.com.ar', 'li.results-item .rowItem.item a')
         # ]
         @parsers = [
-          Apts::Parsers::ZonaPropParser.new(URI('https://www.zonaprop.com.ar/departamentos-alquiler-palermo-belgrano-recoleta-barrio-norte-las-canitas-nunez-villa-crespo-2-ambientes-menos-30000-pesos-orden-publicado-descendente.html')),
+          # Apts::Parsers::ZonaPropParser.new(URI('https://www.zonaprop.com.ar/departamentos-alquiler-palermo-belgrano-recoleta-barrio-norte-las-canitas-nunez-villa-crespo-colegiales-2-ambientes-menos-30000-pesos-orden-publicado-descendente.html')),
+          Apts::Parsers::ArgenPropParser.new(URI('https://www.argenprop.com/departamento-alquiler-barrio-br-norte-barrio-belgrano-barrio-palermo-barrio-colegiales-barrio-nunez-barrio-villa-crespo-2-ambientes-hasta-30000-pesos-orden-masnuevos')),
         ]
 
         logger.debug "#{@parsers.length} parsers configured"

@@ -28,43 +28,6 @@ module Apts
         Digest::SHA1.hexdigest listing_url(l)
       end
 
-      # def url(l)
-      #   raise NotImplementedError
-      # end
-      #
-      # def score(l)
-      #   raise NotImplementedError
-      # end
-      #
-      # def price(l)
-      #   raise NotImplementedError
-      # end
-      #
-      # def size(l)
-      #   raise NotImplementedError
-      # end
-      #
-      # def location(l)
-      #   raise NotImplementedError
-      # end
-
-      # def initialize2(url, link_regex, price_regex:, expensas_regex: nil, size_regex:)
-      #   @url = URI(url)
-      #   @listings_regex = link_regex
-      #   @price_regex = price_regex
-      #   @expensas_regex = expensas_regex
-      #   @size_regex = size_regex
-      # end
-      #
-      # def extract_listings2(html)
-      #   html.css(listings_regex)
-      #       .map do |link|
-      #     href = link['href']
-      #     id = Digest::SHA1.hexdigest href
-      #     Listing.new id, "#{url}#{href}", self
-      #   end
-      # end
-
       def to_s
         "Parser for #{@url}"
       end
