@@ -6,10 +6,9 @@ require_relative '../listing'
 module Apts
   module Parsers
     class Parser
-      @@base = nil
 
       def initialize(url, listings_regex)
-        raise ArgumentError("Invalid host for #{self.class.name}, expected #{@@base.host} but got #{url.host}") unless @@base.host.include? url.host
+        raise ArgumentError, "Invalid host for #{self.class.name}, expected #{@base.host} but got #{url.host}" unless @base.host.include? url.host
 
         @url = URI(url)
         @listings_regex = listings_regex

@@ -5,9 +5,9 @@ module Apts
   module Parsers
     class ZonaPropParser < Parser
       attr_reader :url
-      @@base = URI('https://www.zonaprop.com.ar')
 
       def initialize(url)
+        @base = URI('https://www.zonaprop.com.ar')
         super url, 'div.posting-card'
       end
 
@@ -16,7 +16,7 @@ module Apts
 
       def listing_url(l)
         path = l.css('a.go-to-posting')[0]['href']
-        "#{@@base.scheme}://#{@@base.host}#{path}"
+        "#{@base.scheme}://#{@base.host}#{path}"
       end
 
       def price(l)

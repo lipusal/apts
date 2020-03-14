@@ -36,7 +36,7 @@ module Apts
         #   Apts::Parser.new('https://inmuebles.mercadolibre.com.ar', 'li.results-item .rowItem.item a')
         # ]
         @parsers = [
-          # Apts::Parsers::ZonaPropParser.new(URI('https://www.zonaprop.com.ar/departamentos-alquiler-palermo-belgrano-recoleta-barrio-norte-las-canitas-nunez-villa-crespo-colegiales-2-ambientes-menos-30000-pesos-orden-publicado-descendente.html')),
+          Apts::Parsers::ZonaPropParser.new(URI('https://www.zonaprop.com.ar/departamentos-alquiler-palermo-belgrano-recoleta-barrio-norte-las-canitas-nunez-villa-crespo-colegiales-2-ambientes-menos-30000-pesos-orden-publicado-descendente.html')),
           Apts::Parsers::ArgenPropParser.new(URI('https://www.argenprop.com/departamento-alquiler-barrio-br-norte-barrio-belgrano-barrio-palermo-barrio-colegiales-barrio-nunez-barrio-villa-crespo-2-ambientes-hasta-30000-pesos-orden-masnuevos')),
         ]
 
@@ -48,7 +48,7 @@ module Apts
           seen, unseen = listings.partition { |l| @history.include? l.id }
 
           logger.info "Listings: #{seen.length} seen, #{unseen.length} unseen"
-          puts "Average score for unseen: #{format '%.0f', unseen.map(&:score).sum / unseen.length}" if unseen.any?
+          logger.info "Average score for unseen: #{format '%.0f', unseen.map(&:score).sum / unseen.length}" if unseen.any?
           logger.info 'Notifying unseen listings...'
           unseen.each { |u| notify u }
           logger.info 'Marking unseens as seen'
