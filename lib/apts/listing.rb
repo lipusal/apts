@@ -32,8 +32,12 @@ module Apts
     end
 
     def to_telegram_string
-      # %0A = \n
-      "$#{price[:total]}, #{size[:total]}m2, <b>score: #{format '%.0f', score}</b>%0A#{url}"
+      # https://freelancing-gods.com/2017/07/27/friendly-frozen-string-literals.html
+      result = String.new "$#{price[:total]}"
+      result << ' (expensas = ?)' unless price[:expensas].positive?
+      result << ", #{size[:total]}m2"
+      result << ", <b>score: #{format '%.0f', score}</b>"
+      result << "%0A#{url}" # %0A = \n
     end
 
     # https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Lint/ToJSON
