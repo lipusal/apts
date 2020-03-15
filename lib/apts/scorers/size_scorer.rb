@@ -14,7 +14,10 @@ module Apts
       end
 
       def calc(l)
-        ((l.size[:total] - @max_x)**2 / (4 * @p) + @max_y) * 100
+        size = l.size[:total]
+        return 0 if size.nil?
+
+        ((size - @max_x)**2 / (4 * @p) + @max_y) * 100
       end
     end
   end
