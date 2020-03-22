@@ -2,7 +2,6 @@
 
 require 'dotenv'
 require 'open-uri'
-require 'digest/sha1'
 require 'uri'
 require 'logger'
 require 'json'

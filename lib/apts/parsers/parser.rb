@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'open-uri'
 require 'nokogiri'
+require 'digest/sha1'
 require_relative '../listing'
 
 module Apts
