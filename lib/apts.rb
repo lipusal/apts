@@ -7,6 +7,7 @@ require 'logger'
 require 'json'
 
 require_relative 'apts/parsers/zonaprop_parser'
+require_relative 'apts/parsers/mercadolibre_parser'
 require_relative 'apts/parsers/argenprop_parser'
 require_relative 'apts/version'
 require_relative 'apts/google/drive'
@@ -29,13 +30,11 @@ module Apts
         @drive = Apts::Google::Drive.new
         @history = @drive.seen
         logger.debug "Loaded #{@history.length} seen listings"
-        # @parsers = [
-        #   Apts::Parser.new('https://www.zonaprop.com.ar', 'a.go-to-posting'),
-        #   Apts::Parser.new('https://www.argenprop.com', 'div.listing__items div.listing__item a'),
-        #   Apts::Parser.new('https://inmuebles.mercadolibre.com.ar', 'li.results-item .rowItem.item a')
-        # ]
+
         @parsers = [
           Apts::Parsers::ZonaPropParser.new(URI('https://www.zonaprop.com.ar/departamentos-alquiler-palermo-belgrano-recoleta-barrio-norte-las-canitas-nunez-villa-crespo-colegiales-2-ambientes-menos-30000-pesos-orden-publicado-descendente.html')),
+          # THE TRAILING / FOR ML IS NECESSARY!
+          Apts::Parsers::MercadoLibreParser.new(URI('https://inmuebles.mercadolibre.com.ar/departamentos/alquiler/2-ambientes/capital-federal/barrio-norte-o-belgrano-o-belgrano-barrancas-o-belgrano-c-o-belgrano-chico-o-belgrano-r-o-botanico-o-colegiales-o-las-canitas-o-nunez-o-palermo-o-palermo-chico-o-palermo-hollywood-o-palermo-nuevo-o-palermo-soho-o-palermo-viejo-o-recoleta-o-villa-crespo/')),
           Apts::Parsers::ArgenPropParser.new(URI('https://www.argenprop.com/departamento-alquiler-barrio-br-norte-barrio-belgrano-barrio-palermo-barrio-colegiales-barrio-nunez-barrio-villa-crespo-2-ambientes-hasta-30000-pesos-orden-masnuevos')),
         ]
         logger.debug "#{@parsers.length} parsers configured"
