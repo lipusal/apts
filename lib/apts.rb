@@ -42,12 +42,17 @@ module Apts
         logger.debug "#{@parsers.length} parsers configured"
 
         listings = []
+        max_listings_per_parser = ENV['MAX_LISTINGS_PER_PARSER']&.to_i
 
         @parsers.each do |parser|
           parser_listings = parser.extract_listings
           seen, unseen = parser_listings.partition { |l| @history.include? l.id }
 
           logger.info "Extracted #{parser_listings.length} listings from #{parser.url.host}: #{seen.length} seen, #{unseen.length} unseen"
+          unless max_listings_per_parser.nil?
+            logger.debug "Limiting to #{max_listings_per_parser} listings"
+            unseen = unseen.take max_listings_per_parser
+          end
           listings.concat unseen
         end
 
