@@ -39,23 +39,26 @@ module Apts
           Apts::Parsers::ZonaPropParser.new(URI('https://www.zonaprop.com.ar/departamentos-alquiler-palermo-belgrano-recoleta-barrio-norte-las-canitas-nunez-villa-crespo-colegiales-2-ambientes-menos-30000-pesos-orden-publicado-descendente.html')),
           Apts::Parsers::ArgenPropParser.new(URI('https://www.argenprop.com/departamento-alquiler-barrio-br-norte-barrio-belgrano-barrio-palermo-barrio-colegiales-barrio-nunez-barrio-villa-crespo-2-ambientes-hasta-30000-pesos-orden-masnuevos')),
         ]
-
         logger.debug "#{@parsers.length} parsers configured"
-        @parsers.each do |parser|
-          logger.info "Extracting listings from #{parser.url.host}..."
-          listings = parser.extract_listings
-          logger.debug "Extracted #{listings.length} listings"
-          seen, unseen = listings.partition { |l| @history.include? l.id }
 
-          logger.info "Listings: #{seen.length} seen, #{unseen.length} unseen"
-          logger.info "Average score for unseen: #{format '%.0f', unseen.map(&:score).sum / unseen.length}" if unseen.any?
-          logger.info 'Notifying unseen listings...'
-          unseen.each { |u| notify u }
-          logger.info 'Marking unseens as seen'
-          @drive.mark_as_seen unseen
+        listings = []
+
+        @parsers.each do |parser|
+          parser_listings = parser.extract_listings
+          seen, unseen = parser_listings.partition { |l| @history.include? l.id }
+
+          logger.info "Extracted #{parser_listings.length} listings from #{parser.url.host}: #{seen.length} seen, #{unseen.length} unseen"
+          listings.concat unseen
         end
 
-        logger.info "DONE"
+        logger.info "Extracted #{listings.length} unseen listings in total"
+        logger.info "Average score: #{format '%.0f', listings.map(&:score).sum / listings.length}" if listings.any?
+        logger.info 'Notifying unseen listings...'
+        listings.each { |u| notify u }
+        logger.info 'Marking unseens as seen...'
+        @drive.mark_as_seen listings
+
+        logger.info 'DONE'
       end
     end
   end
