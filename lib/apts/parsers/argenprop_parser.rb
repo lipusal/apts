@@ -31,7 +31,7 @@ module Apts
       def size(l)
         data = l.css('a div.card__details-box > p.card__common-data')[0].text.strip
         parsed_total = data.match(/^(\d+)\s?m/)
-        total = parsed_total[1]&.to_i
+        total = parsed_total[1].to_i rescue nil
         covered = nil
         {
           covered: covered,
