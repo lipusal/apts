@@ -45,10 +45,8 @@ module Apts
     def to_json(*_args)
       {
         url: url,
-        basePrice: price[:base],
-        expensas: price[:expensas],
-        totalPrice: price[:total],
-        totalSize: size[:total]
+        price: price,
+        size: size
       }
     end
   end
