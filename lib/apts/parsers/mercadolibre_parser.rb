@@ -44,7 +44,7 @@ module Apts
         }
       end
 
-      def location(l)
+      def address(l)
         data = l.css('div.item__info div.item__title')
         return if data.nil?
 

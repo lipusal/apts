@@ -39,7 +39,7 @@ module Apts
         }
       end
 
-      def location(l)
+      def address(l)
         data = l.css('a div.card__details-box > div.card__location-address-box > .card__address')[0]
         return if data.nil?
 

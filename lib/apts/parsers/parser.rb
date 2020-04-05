@@ -22,7 +22,7 @@ module Apts
       end
 
       def to_listing(l)
-        Listing.new id(l), URI(listing_url(l)), price: price(l), size: size(l), location: location(l)
+        Listing.new id(l), URI(listing_url(l)), price: price(l), size: size(l), address: address(l)
       end
 
       def id(l)

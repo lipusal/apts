@@ -6,14 +6,14 @@ require_relative 'scorers/price_scorer'
 module Apts
   class Listing
     include Comparable
-    attr_reader :id, :url, :price, :expensas, :size, :location
+    attr_reader :id, :url, :price, :expensas, :size, :address
 
-    def initialize(id, url, price:, size:, location:)
+    def initialize(id, url, price:, size:, address:)
       @id = id
       @url = url
       @price = price
       @size = size
-      @location = location
+      @address = address
     end
 
     def score

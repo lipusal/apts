@@ -39,7 +39,7 @@ module Apts
         }
       end
 
-      def location(l)
+      def address(l)
         data = l.css('span.posting-location')
         return if data.nil?
 
