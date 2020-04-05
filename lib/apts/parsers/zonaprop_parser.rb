@@ -41,7 +41,12 @@ module Apts
 
       def location(l)
         data = l.css('span.posting-location')
-        "#{data.text.strip}#{data.css('span').text}"
+        return if data.nil?
+
+        data.text.strip
+            .gsub(/[\n\t]/, '')
+            .gsub(/\s{2,}/, ' ')
+            .sub(/\s+al\s+/i, ' ')
       end
     end
   end

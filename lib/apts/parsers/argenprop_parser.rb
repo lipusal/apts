@@ -41,7 +41,12 @@ module Apts
 
       def location(l)
         data = l.css('a div.card__details-box > div.card__location-address-box > .card__address')[0]
-        data.text.strip.sub(/\b[, ]?Capital Federal/, '')
+        return if data.nil?
+
+        data.text.strip
+            .gsub(/[\n\t]/, '')
+            .gsub(/\s{2,}/, ' ')
+            .sub(/\s+al\s+/i, ' ')
       end
     end
   end

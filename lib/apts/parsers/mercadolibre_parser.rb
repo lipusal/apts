@@ -45,7 +45,12 @@ module Apts
       end
 
       def location(l)
-        l.css('div.item__info div.item_subtitle span')[0].text.strip
+        data = l.css('div.item__info div.item__title')
+        return if data.nil?
+
+        data.text.strip
+            .gsub(/ - /, ', ')
+            .sub(/\s+al\s+/, ' ')
       end
     end
   end
