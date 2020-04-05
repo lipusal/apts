@@ -16,7 +16,8 @@ module Apts
       end
 
       def extract_listings
-        html = Nokogiri::HTML(open(@url))
+        # Force using UTF-8, https://stackoverflow.com/a/28255036
+        html = Nokogiri::HTML(open(@url), nil, Encoding::UTF_8.to_s)
         html.css(@listings_regex).map { |l| to_listing l }
       end
 
