@@ -1,7 +1,7 @@
 module Apts
   class Blacklist
     def blacklisted?(listing)
-      listing.address.upcase == 'VERA 0'
+      listing.address.match?(/VERA 0/i)
     end
   end
 end
