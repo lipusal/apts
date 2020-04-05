@@ -30,7 +30,7 @@ module Apts
     end
 
     def to_s
-      "Listing $#{price[:total]}, #{size[:total]}m2, #{url.path} (#{id})"
+      "Listing from #{url.host}, $#{price[:total]}, #{size[:total]}m2, #{address}, #{url.path} (#{id})"
     end
 
     def to_telegram_string
