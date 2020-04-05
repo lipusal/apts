@@ -38,6 +38,7 @@ module Apts
       result << ' (expensas = ?)' unless price[:expensas].positive?
       result << ", #{size[:total] || '?'}m2"
       result << ", <b>score: #{format '%.0f', score}</b>"
+      result << "%0A#{address.sub(/,\s*Capital Federal$/, '')}" unless address.nil?
       result << "%0A#{url}" # %0A = \n
     end
 
