@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'uri'
 require_relative 'scorers/size_scorer'
 require_relative 'scorers/price_scorer'
 
@@ -38,8 +39,9 @@ module Apts
       result << ' (expensas = ?)' unless price[:expensas].positive?
       result << ", #{size[:total] || '?'}m2"
       result << ", <b>score: #{format '%.0f', score}</b>"
-      result << "%0A#{address.sub(/,\s*Capital Federal$/, '')}" unless address.nil?
-      result << "%0A#{url}" # %0A = \n
+      result << "\n#{address.sub(/,\s*Capital Federal$/, '')}" unless address.nil?
+      result << "\n#{url}"
+      URI.encode result
     end
 
     # https://www.rubydoc.info/gems/rubocop/RuboCop/Cop/Lint/ToJSON
