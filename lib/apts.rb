@@ -39,7 +39,7 @@ module Apts
           # ZonaProp 5 años <= x <= 10 años
           Apts::Parsers::ZonaPropParser.new(URI('https://www.zonaprop.com.ar/departamentos-alquiler-palermo-belgrano-recoleta-barrio-norte-las-canitas-nunez-villa-crespo-colegiales-2-ambientes-entre-5-y-10-anos-menos-30000-pesos-orden-publicado-descendente.html')),
           # ZonaProp 10 años <= x <= 20 años
-          Apts::Parsers::ZonaPropParser.new(URI('https://www.zonaprop.com.ar/departamentos-alquiler-palermo-belgrano-recoleta-barrio-norte-las-canitas-nunez-villa-crespo-colegiales-2-ambientes-entre-10-y-20-anos-menos-30000-pesos-orden-publicado-descendente.html')),
+          # Apts::Parsers::ZonaPropParser.new(URI('https://www.zonaprop.com.ar/departamentos-alquiler-palermo-belgrano-recoleta-barrio-norte-las-canitas-nunez-villa-crespo-colegiales-2-ambientes-entre-10-y-20-anos-menos-30000-pesos-orden-publicado-descendente.html')),
           # ZonaProp sin filtro de antigüedad
           Apts::Parsers::ZonaPropParser.new(URI('https://www.zonaprop.com.ar/departamentos-alquiler-palermo-belgrano-recoleta-barrio-norte-las-canitas-nunez-villa-crespo-colegiales-2-ambientes-menos-30000-pesos-orden-publicado-descendente.html')),
 
